@@ -7,10 +7,11 @@
 </head>
 <body>
     <script>
+        const gradesArr = [];
 
         function getData() {
             // const amStudents = document.getElementById("students-amount").value; //under development
-            const amGrades = document.getElementById("grades-amount").value;
+            const amGrades = parseInt(document.getElementById("grades-amount").value);
             tableGenerator(amGrades);
         }
 
@@ -19,12 +20,18 @@
             let inputElement = document.getElementById(id);
             let inputValue = parseInt(inputElement.value);
             let numberOfRow = id.match(/\d+/);
-            console.log(numberOfRow);
+            let num = parseInt(numberOfRow) + 1;
+
             if (isNaN(inputValue) || inputValue < 0 || inputValue > 100) {
-                console.log(inputValue);
-                alert("Pleae enter a number in between 0 and 100 for #" + (id + 1) + ".");
+                alert("Pleae enter a number in between 0 and 100 for #" + num + ".");
                 inputElement.value = ""; // Clear the input field
-            } 
+                document.getElementById(id).style.backgroundColor = 'white';
+            } else if (inputValue < 70) {
+                document.getElementById(id).style.backgroundColor = 'red';
+
+            } else {
+                document.getElementById(id).style.backgroundColor = 'green';
+            }
             
         }
 
@@ -54,6 +61,17 @@
                 // Creating a line breake to separate each label and input elements
                 place.appendChild(document.createElement("br"));
             }
+            let button = document.createElement("button");
+            button.innerText = "Calculate";
+            button.setAttribute("onclick", "getGrades()");
+            document.getElementById('button').appendChild(button);
+        }
+
+        // Data collection from the user input fields
+        function getGrades() {
+            for (let i = 0; amGrades < i; i++) {
+                gradesArr.push()
+            }
         }
     </script>
     <form>
@@ -69,5 +87,6 @@
         <fieldset id="grades">
         </fieldset>
     </form>
+    <div id="button"></div>
 </body>
 </html>
