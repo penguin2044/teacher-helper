@@ -98,7 +98,7 @@
         document.getElementById('button').appendChild(button);
     }
 
-    // Data collection from the user input fields
+    // Data collection from the user input fields 1
     function getGrades() {
         const gradesArr = Array.from(document.getElementsByClassName('data'));
         const myArr = gradesArr.map((el) => el.value);
