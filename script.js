@@ -124,14 +124,26 @@
         return sum / arr.length;
     }
 
-    // Submission form on Enter
+    // Submission form on Enter (I confess, I cheated and used chatGPT for that, but I understand this part )
     function handleKeyPress(event, id) {
-        if (event.key === "Enter" && id == 1) {
+        if (event.key === "Enter") {
           event.preventDefault(); // Prevent the default form submission
-          getData();
-        } else if (event.key === "Enter") {
-            event.preventDefault();
-            getGrades();
+          const inputs = document.querySelectorAll("input");
+          const currentInput = document.activeElement;
+          const currentIndex = Array.from(inputs).indexOf(currentInput);
+      
+          if (currentIndex < inputs.length - 1) {
+            // If not the last input, focus on the next input
+            inputs[currentIndex + 1].focus();
+          } else {
+            // If the last input, call the appropriate function based on the 'id'
+            if (id === 1) {
+              getData();
+            } else {
+              getGrades();
+            }
+          }
         }
       }
+      
       
