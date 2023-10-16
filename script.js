@@ -20,10 +20,15 @@
     function validateInputFirst() {
         let inputElement = document.getElementById("grades-amount");
         let inputValue = parseInt(inputElement.value);
-        if (isNaN(inputValue) || inputValue < 0 || inputValue > 20) {
-            alert("Please enter a number in between 0 and 20.");
-            inputElement.value = ""; // Clear the input field
-        } 
+        if (inputValue > 50) {
+            inputElement.value = "50";
+        } else if (isNaN(inputValue)) {
+            inputElement.value = "";
+        } else if (inputValue < 0) {
+            inputElement.value = "0";
+        } else if (inputElement.value.length > 2) {
+            inputElement.value = "0";
+        }
     }
 
     // Validating of input for grades in between 0 an 100
@@ -41,7 +46,7 @@
             document.getElementById(id).style.backgroundColor = 'green';
         } else if (inputElement.value.length > 3) {
             inputElement.value = "0"
-        } else if (inputValue < 70) {
+        } else if (inputValue < 50) {
             document.getElementById(id).style.backgroundColor = 'red';
         } else if (isNaN(inputValue)) {
             inputElement.value = "";
@@ -64,7 +69,7 @@
             // Create button up
             let buttonUp = document.createElement("button");
 
-            // Create a lable element
+            // Create a label element
             let label = document.createElement("label");
             label.setAttribute("for", `grade${i}`);
             label.innerText = `#${i + 1}`;
@@ -82,14 +87,11 @@
             // Appending div
             place.appendChild(div);
 
-            // New place within div
-            let placeDiv = document.getElementById(i);
-
             // Appending label and input to designated place in the document
             place.appendChild(label);
-            placeDiv.appendChild(input);
+            place.appendChild(input);
 
-            // Creating a line breake to separate each label and input elements
+            // Creating a line break to separate each label and input elements
             place.appendChild(document.createElement("br"));
         }
         let button = document.createElement("button");
@@ -112,7 +114,11 @@
 
     // Report builder
     function reportCard(avr) {
-        document.getElementById("result").innerHTML = `${avr.toFixed(3)}%`;
+        if (avr < 70) {
+            document.getElementById("result").innerHTML = `${avr.toFixed(3)}% <br /> Hint: Average is below 70%. Consider reviewing concepts from the unit before moving on.`;    
+        } else {
+            document.getElementById("result").innerHTML = `${avr.toFixed(3)}%`;
+        }
     }
 
     // Calculate retrieved data
