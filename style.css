@@ -1,0 +1,61 @@
+body {
+    font-family: 'Roboto Slab', serif;
+    background-color: #3e5e8e ;
+    }
+    h1{
+        text-align: center;
+        color: #ffffff;
+    }
+        #wrapper {
+    display: grid;
+	grid-template-columns: 1fr;
+	grid-template-areas:
+        "header"
+		"main"
+		"insert";
+	grid-gap: 20px;
+	width: 400px;
+	margin:0 auto;
+    padding: 10px;
+    border-radius: 15px;
+	border: thick solid;
+	border-color: #3d6094;
+    background-color: #d9e1e8;
+        }
+    student {
+	grid-area: header;
+    }
+    click{
+    grid-area: main;
+
+    }
+    insert {
+	grid-area: insert;
+    }
+  
+.label-grades {
+display: inline-block;
+width: 30px;
+
+}
+/* is the box for the first input */
+#grades-amount{
+    background-color: white;
+}
+/* background of fieldset */
+.grades {
+    background-color: white;
+    border: none;
+}
+/* #form2{
+    background-color: white;
+    border: none ;
+} */
+.button{
+    background-color: white;
+    border: thin ;
+}
+.box {
+    background-color: black;
+    border: none ;
+}

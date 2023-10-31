@@ -37,21 +37,21 @@
         let inputValue = parseInt(inputElement.value);
         let numberOfRow = id.match(/\d+/);
         let num = parseInt(numberOfRow) + 1;
-
+        //Pass or fail colours
         if (inputValue < 0) {
             alert("Pleae enter a number in between 0 and 100 for #" + num + ".");
             inputElement.value = "0"; // Clear the input field
         } else if (inputValue > 100) {
             inputElement.value = "100";
-            document.getElementById(id).style.backgroundColor = 'green';
+            document.getElementById(id).style.backgroundColor = '#4bde72';
         } else if (inputElement.value.length > 3) {
             inputElement.value = "0"
         } else if (inputValue < 50) {
-            document.getElementById(id).style.backgroundColor = 'red';
+            document.getElementById(id).style.backgroundColor = '#fc7168';
         } else if (isNaN(inputValue)) {
             inputElement.value = "";
         } else {
-            document.getElementById(id).style.backgroundColor = 'green';
+            document.getElementById(id).style.backgroundColor = '#4bde72';
         }
     }
 
@@ -72,7 +72,8 @@
             // Create a label element
             let label = document.createElement("label");
             label.setAttribute("for", `grade${i}`);
-            label.innerText = `#${i + 1}`;
+            label.setAttribute("class","label-grades")
+            label.innerText = `${i + 1}`;
 
             // Crate an input element
             let input = document.createElement("input");
@@ -81,7 +82,7 @@
             input.setAttribute("placeholder", 0);
             input.setAttribute("min", 0);
             input.setAttribute("max", 100);
-            input.setAttribute("class", "data");
+            input.setAttribute("class", "data input-grades");
             input.setAttribute("oninput", `validateInput("grade${i}")`);
 
             // Appending div
@@ -98,6 +99,7 @@
         button.innerText = "Calculate";
         button.setAttribute("onclick", "getGrades()");
         document.getElementById('button').appendChild(button);
+        button.classList.add("button");
     }
 
     // Data collection from the user input fields
@@ -108,7 +110,7 @@
         if (!!calFromArr(myArr)) {
             reportCard(calFromArr(myArr));
         } else {
-            alert('you missed to enter some grades');
+            alert('You missed entered some grades');
         }
     }
 
