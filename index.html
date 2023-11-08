@@ -1,50 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
-    
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Super Teacher 3000</title>
 
 </head>
+
 <body>
-    
-    
-    <h1>Grade Calculator</h1>   
+
+    <h1>Grade Calculator</h1>
     <div id="wrapper">
-  
-  
-    <script src="script.js"></script>
-    <!-- First form for retrieving information about how many grades -->
 
-    <form id="form1" onsubmit="return false;" onkeydown="handleKeyPress(event, 1)">
-        <student>
-        <fieldset class="grades">
-            <!-- <label for="students-amount">Input amount of students in your class<input type="number" id="students-amount" name="students-amount" /></label> -->
-            <label for="grades-amount">How many students do you have?
-                <input type="number" id="grades-amount" name="grades-amount" value="0" min="0" max="20" oninput="validateInputFirst()" />
-            </label>
-        </fieldset>
-    </student>
-    </form>
-<click>
-    <button onclick="getData()" class="button">Generate table</button>
-</click>
+        <script src="script.js"></script>
+        <!-- First form for retrieving information about how many grades -->
 
-    <div id="grades-div">
-    <insert>
-        <form id="form2" onsubmit="return false;" onkeydown="handleKeyPress(event)">
-            <fieldset class="grades">
-            </fieldset>
+        <form id="form1" onsubmit="return false;" onkeydown="handleKeyPress(event, 1)">
+            <student>
+                <fieldset class="grades">
+                    <!-- <label for="students-amount">Input amount of students in your class<input type="number" id="students-amount" name="students-amount" /></label> -->
+                    <label for="grades-amount">How many students do you have?
+                        <input type="number" id="grades-amount" name="grades-amount" value="0" min="0" max="20"
+                            oninput="validateInputFirst()" />
+                    </label>
+                </fieldset>
+            </student>
         </form>
-    </insert>
-        <div id="button"></div>
-        <div id="result"></div>
+        <click>
+            <button onclick="getData()" class="button">Generate table</button>
+        </click>
+
+        <div id="grades-div">
+            <insert>
+                <form id="form2" onsubmit="return false;" onkeydown="handleKeyPress(event)">
+                    <fieldset class="grades">
+                    </fieldset>
+                </form>
+            </insert>
+            <div id="button"></div>
+            <div id="result"></div>
+        </div>
     </div>
-</div>
 </body>
+
 </html>
