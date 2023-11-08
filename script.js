@@ -62,10 +62,9 @@ function tableGenerator(grades) {
     let place = document.getElementById("grades");
 
     for (let i = 0; i < grades; i++) {
-        // Crate a div box
-        let div = document.createElement("div");
-        div.setAttribute("class", "box");
-        div.setAttribute("id", `${i}`);
+
+        let rowDiv = document.createElement("div");
+        rowDiv.classList.add("input-num")
 
         // Create button up
         let buttonUp = document.createElement("button");
@@ -74,7 +73,7 @@ function tableGenerator(grades) {
         let label = document.createElement("label");
         label.setAttribute("for", `grade${i}`);
         label.setAttribute("class", "label-grades")
-        label.innerText = `${i + 1}`;
+        label.innerText = `Student Grade #${i + 1}:`;
 
         // Crate an input element
         let input = document.createElement("input");
@@ -86,15 +85,10 @@ function tableGenerator(grades) {
         input.setAttribute("class", "data input-grades");
         input.setAttribute("oninput", `validateInput("grade${i}")`);
 
-        // Appending div
-        place.appendChild(div);
-
         // Appending label and input to designated place in the document
-        place.appendChild(label);
-        place.appendChild(input);
-
-        // Creating a line break to separate each label and input elements
-        place.appendChild(document.createElement("br"));
+        place.appendChild(rowDiv);
+        rowDiv.appendChild(label);
+        rowDiv.appendChild(input);
     }
     let button = document.createElement("button");
     button.innerText = "Calculate";
