@@ -1,61 +1,93 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+:root {
+    --my-blue: rgb(56, 96, 255);
+}
+
 body {
-    font-family: 'Roboto Slab', serif;
-    background-color: #3e5e8e ;
-    }
-    h1{
-        text-align: center;
-        color: #ffffff;
-    }
-        #wrapper {
-    display: grid;
-	grid-template-columns: 1fr;
-	grid-template-areas:
-        "header"
-		"main"
-		"insert";
-	grid-gap: 20px;
-	width: 400px;
-	margin:0 auto;
-    padding: 10px;
-    border-radius: 15px;
-	border: thick solid;
-	border-color: #3d6094;
-    background-color: #d9e1e8;
-        }
-    student {
-	grid-area: header;
-    }
-    click{
-    grid-area: main;
+    font-family: 'DM Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: rgb(238, 241, 252);
+    font-size: 20px;
+}
 
-    }
-    insert {
-	grid-area: insert;
-    }
-  
-.label-grades {
-display: inline-block;
-width: 30px;
+h1 {
+    font-weight: bold;
+    font-size: 2em;
+    text-transform: uppercase;
+    text-align: center;
+    margin: 20px;
+    padding: 0px;
+    text-shadow: var(--my-blue) 1px 0 20px;
+    color: white;
+}
+
+#wrapper {
+    width: 50%;
+    margin: auto;
 
 }
-/* is the box for the first input */
-#grades-amount{
+
+#grades-amount {
+    /* is the box for the first input */
     background-color: white;
 }
-/* background of fieldset */
-.grades {
-    background-color: white;
+
+#result {
+    text-align: center;
+    font-weight: bold;
+}
+
+fieldset {
+    padding: 5px;
+    background-color: gray;
     border: none;
+    border-radius: 7px;
+    padding: 7px 25px;
+    color: white;
 }
-/* #form2{
-    background-color: white;
-    border: none ;
-} */
-.button{
-    background-color: white;
-    border: thin ;
-}
+
 .box {
-    background-color: black;
-    border: none ;
+    border: none;
+    width: 100%;
+    padding-top: 12px;
+}
+
+#grades-div label {
+    display: inline-block;
+    margin-right: 10px;
+    width: 200px;
+}
+
+.input-num {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-bottom: 2px dotted rgba(256, 256, 256, 0.3);
+}
+
+input {
+    font-weight: bold;
+    margin-left: 12px;
+    padding: 5px;
+    width: 100px;
+    height: 20px;
+    border: 2px solid black;
+    border-radius: 7px;
+}
+input:focus-visible {
+    outline: -webkit focus ring color auto 1px;
+    outline-color:  var(--my-blue);
+}
+
+.button {
+    font-size: 1.5em;
+    text-transform: uppercase;
+    color: white;
+    background-color: var(--my-blue);
+    border-radius: 25px;
+    margin: 20px 0 20px 0;
+    border: thin;
+    width: 100%;
+    padding: 5px;
 }
