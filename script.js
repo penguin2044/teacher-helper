@@ -62,12 +62,9 @@ function tableGenerator(grades) {
     let place = document.getElementById("grades");
 
     for (let i = 0; i < grades; i++) {
-
+        // Div box for every row
         let rowDiv = document.createElement("div");
         rowDiv.classList.add("input-num")
-
-        // Create button up
-        let buttonUp = document.createElement("button");
 
         // Create a label element
         let label = document.createElement("label");
