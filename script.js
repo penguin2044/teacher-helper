@@ -3,7 +3,7 @@
 const student = {
     firstName: "",
     lastName: "",
-    grades: {},
+    grades: undefined,
     fullName: function() {
         return this.firstName + " " + this.lastName;
     },
@@ -12,6 +12,12 @@ const student = {
         this.firstName = nameArr[0];
         this.lastName = nameArr[1];
     }
+}
+
+const studentsGrades = {
+addStudent: function(studentName, grade) {
+this[studentName] = grade;
+}
 }
 
 function getData() {
@@ -51,78 +57,98 @@ function validateInput(id) {
     let inputValue = parseInt(inputElement.value);
     let numberOfRow = id.match(/\d+/);
     let num = parseInt(numberOfRow) + 1;
-
+    //Pass or fail colours
     if (inputValue < 0) {
         alert("Pleae enter a number in between 0 and 100 for #" + num + ".");
         inputElement.value = "0"; // Clear the input field
     } else if (inputValue > 100) {
         inputElement.value = "100";
-        document.getElementById(id).style.backgroundColor = 'green';
+        document.getElementById(id).style.backgroundColor = '#4bde72';
     } else if (inputElement.value.length > 3) {
         inputElement.value = "0"
     } else if (inputValue < 50) {
-        document.getElementById(id).style.backgroundColor = 'red';
+        document.getElementById(id).style.backgroundColor = '#fc7168';
     } else if (isNaN(inputValue)) {
         inputElement.value = "";
     } else {
-        document.getElementById(id).style.backgroundColor = 'green';
+        document.getElementById(id).style.backgroundColor = '#4bde72';
     }
 }
 
+//Outputs the result
 function tableGenerator(grades) {
 
     // Get a reference to the place where we insert our grades fields
     let place = document.getElementById("grades");
 
     for (let i = 0; i < grades; i++) {
-        // Crate a div box
-        let div = document.createElement("div");
-        div.setAttribute("class", "box");
-        div.setAttribute("id", `${i}`);
-
-        // Create button up
-        let buttonUp = document.createElement("button");
+        // Div box for every row
+        let rowDiv = document.createElement("div");
+        rowDiv.classList.add("input-num")
 
         // Create a label element
         let label = document.createElement("label");
         label.setAttribute("for", `grade${i}`);
-        label.innerText = `#${i + 1}`;
+        label.setAttribute("class", "label-grades")
+        label.innerText = `Student #${i + 1}:`;
 
-        // Crate an input element
+        // Input for grade
         let input = document.createElement("input");
         input.setAttribute("id", `grade${i}`);
         input.setAttribute("type", "number");
         input.setAttribute("placeholder", 0);
         input.setAttribute("min", 0);
         input.setAttribute("max", 100);
-        input.setAttribute("class", "data");
+        input.setAttribute("class", "data input-grades");
         input.setAttribute("oninput", `validateInput("grade${i}")`);
 
-        // Appending div
-        place.appendChild(div);
+        // Label for name
+        let nameLabel = document.createElement('label');
+        nameLabel.setAttribute("id", `name${i}`);
+        nameLabel.innerText = "enter student's name";
+
+        // Input for name
+        let nameInput = document.createElement('input');
+        nameInput.classList.add('full-name');
+        nameInput.setAttribute("id", `name${i}`);
+        nameInput.setAttribute('placeholder', 'Jesse Kleinschmit');
 
         // Appending label and input to designated place in the document
-        place.appendChild(label);
-        place.appendChild(input);
-
-        // Creating a line break to separate each label and input elements
-        place.appendChild(document.createElement("br"));
+        place.appendChild(rowDiv);
+        rowDiv.appendChild(nameLabel);
+        rowDiv.appendChild(nameInput);
+        rowDiv.appendChild(label);
+        rowDiv.appendChild(input);
     }
     let button = document.createElement("button");
     button.innerText = "Calculate";
     button.setAttribute("onclick", "getGrades()");
     document.getElementById('button').appendChild(button);
+    button.classList.add("button");
 }
 
-// Data collection from the user input fields
+// Value entered by the user
 function getGrades() {
+    // Grades
     const gradesArr = Array.from(document.getElementsByClassName('data'));
     const myArr = gradesArr.map((el) => el.value);
+
+    //Names
+    const namesArr = Array.from(document.getElementsByClassName('full-name'));
+    const studentNames = namesArr.map((el) => el.value);
+
+    // Assigning each grade to a student
+    for (let i = 0; i < myArr.length; i++) {
+        studentsGrades.addStudent(studentNames[i], myArr[i]);
+    }
+
+    console.log(studentsGrades);
+
     // Check and build
     if (!!calFromArr(myArr)) {
         reportCard(calFromArr(myArr));
     } else {
-        alert('you missed to enter some grades');
+        alert('You missed entered some grades');
     }
 }
 
@@ -135,7 +161,7 @@ function reportCard(avr) {
     }
 }
 
-// Calculate retrieved data
+// Calculate the average
 function calFromArr(arr) {
     let sum = 0;
     for (let i = 0; arr.length > i; i++) {
@@ -165,4 +191,3 @@ function handleKeyPress(event, id) {
         }
     }
 }
-
