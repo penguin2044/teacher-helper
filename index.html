@@ -4,29 +4,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Super Teacher 3000</title>
+    <title>Grade Average Calculator</title>
     <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
-    <script src="script.js"></script>
-    <form id="form1" onsubmit="return false;" onkeydown="handleKeyPress(event, 1)">
-        <fieldset>
-            <label for="full-name">Enter a First Name and a Last Name of your student</label>
-            <input type="text" id="full-name" name="full-name" placeholder="Jesse Kleinschmit" />
-            <label for="grades-amount">How many grade does he have?</label>
-            <input type="number" id="grades-amount" name="grades-amount" value="3" min="0" max="20"
-                oninput="validateInputFirst()" />
-        </fieldset>
-    </form>
+    <main>
+        <header>
+            <h1>Grade Average Calculator</h1>
+        </header>
+        <section id="fill-out">
+            <form onsubmit="return false;">
+                <!-- Student's full name -->
+                <div>
+                    <label for="full-name">First and Last Name of the Student</label>
+                    <input id="full-name" name="full-name" type="text" placeholder="Jesse Kleinschmit" />
+                </div>
+                <!-- Student's GAC -->
+                <div>
+                    <label for="grade">His Grade Average in the Course</label>
+                    <input id="grade" name="grade" type="number" min="0" max="100" />
+                </div>
+                <!-- Checkbox for calculating an average for a student -->
+                <label for="student-gac">Compute a Grade for the Student</label>
+                <input id="student-gac" name="student-gac" type="checkbox" />
 
-    <button onclick="getData()">generate table</button>
-    <div id="grades-div">
-        <form id="form2" onsubmit="return false;" onkeydown="handleKeyPress(event)">
-        </form>
-        <div id="button"></div>
-        <div id="result"></div>
-    </div>
+                <!-- Button for pushing data -->
+                <div>
+                    <label for="submit-button">Hit Enter to Add Or Button:</label>
+                    <input id="submit-button" name="submit-button" type="submit" onclick="pushIntoTable()" />
+                </div>
+            </form>
+        </section>
+        <section id="students-table">
+
+        </section>
+        <section id="answer">
+
+        </section>
+    </main>
+    <script src="script.js"></script>
 </body>
 
 </html>
