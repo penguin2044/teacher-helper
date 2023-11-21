@@ -22,8 +22,8 @@
                 </div>
                 <!-- Student's GAC -->
                 <div>
-                    <label for="grade">His Grade Average in the Course</label>
-                    <input id="grade" name="grade" type="number" min="0" max="100" />
+                    <label for="grade">Its Grade Average in the Course</label>
+                    <input id="grade" name="grade" type="number" min="0" max="100" oninput="rangeValidation(0, 100)" />
                 </div>
                 <!-- Checkbox for calculating an average for a student -->
                 <label for="student-gac">Compute a Grade for the Student</label>
@@ -32,14 +32,15 @@
                 <!-- Button for pushing data -->
                 <div>
                     <label for="submit-button">Hit Enter to Add Or Button:</label>
-                    <input id="submit-button" name="submit-button" type="submit" onclick="pushIntoTable()" />
+                    <input id="submit-button" name="submit-button" type="submit" onclick="allStudent.getData()" />
                 </div>
             </form>
         </section>
+        <section id="answer">
+        </section>
         <section id="students-table">
 
-        </section>
-        <section id="answer">
+        
 
         </section>
     </main>
