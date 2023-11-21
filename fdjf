@@ -1,0 +1,154 @@
+<style>
+    #gradeCalculator {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .instruction {
+      margin-bottom: 10px;
+      text-align: center;
+      font-weight: bold;
+      color: white;
+    }
+  
+    .input-group {
+      display: flex;
+      margin-bottom: 10px;
+    }
+  
+    .input-group input[type="text"],
+    .input-group input[type="number"],
+    .input-group button {
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      outline: 2px solid red;
+      color: white;
+    }
+  
+    .input-group input[type="text"] {
+      width: 200px;
+      margin-right: 10px;
+      color: white;
+      background-color: black; /* Changed background color to black */
+    }
+  
+    .input-group input[type="number"] {
+      width: 150px;
+      margin-right: 10px;
+      color: white;
+      background-color: black; /* Changed background color to black */
+    }
+  
+    .input-group button {
+      background-color: red;
+      cursor: pointer;
+    }
+  
+    #output,
+    #averageOutput {
+      font-weight: bold;
+      margin-top: 10px;
+      text-align: center;
+      color: white;
+    }
+  
+    .above-seventy {
+      color: green;
+    }
+  
+    .below-seventy {
+      color: red;
+    }
+  </style>
+  
+  <script>
+    var students = {};
+  
+    document.addEventListener("DOMContentLoaded", function () {
+      document
+        .getElementById("submitButton")
+        .addEventListener("click", function () {
+          var studentInput = document.getElementById("studentInput");
+          var gradeInput = document.getElementById("gradeInput");
+          var student = studentInput.value;
+          var grade = parseInt(gradeInput.value);
+          studentInput.value = "";
+          gradeInput.value = "";
+  
+          if (student && grade >= 0 && grade <= 100) {
+            students[student] = grade;
+  
+            document.getElementById("output").innerHTML = createOutput(students);
+            document.getElementById("averageOutput").innerHTML =
+              calculateAverage(students);
+          } else {
+            alert("Please enter both student name and grade between 0 and 100.");
+          }
+        });
+  
+      document
+        .getElementById("gradeInput")
+        .addEventListener("input", function () {
+          var input = parseInt(this.value);
+          if (isNaN(input)) {
+            this.value = "";
+          }
+          if (input > 100) {
+            this.value = "100";
+          }
+          if (input < 0) {
+            this.value = "0";
+          }
+        });
+    });
+  
+    function createOutput(students) {
+      var output = "Grades added:<br>";
+      for (var student in students) {
+        output += student + ": " + students[student] + "<br>";
+      }
+      return output;
+    }
+  
+    function calculateAverage(students) {
+      var sum = 0;
+      var count = 0;
+      for (var student in students) {
+        sum += students[student];
+        count++;
+      }
+      var average = sum / count;
+      var message = "Average grade: " + average.toFixed(2) + "<br>";
+      if (average >= 70) {
+        message +=
+          "<span class='above-seventy'>The average grade is higher than 70%.</span>";
+      } else {
+        message +=
+          "<span class='below-seventy'>The average grade is lower than 70%.</span>";
+      }
+      return message;
+    }
+  </script>
+  
+  <div id="gradeCalculator">
+    <h1 style="color: white">grade average calculator</h1>
+    <p class="instruction">Enter student name and grade, then click Submit</p>
+  
+    <div class="input-group">
+      <input type="text" id="studentInput" placeholder="Enter student name" />
+      <input
+        type="number"
+        id="gradeInput"
+        placeholder="Enter a grade"
+        min="0"
+        max="100"
+      />
+      <button type="button" id="submitButton">Submit</button>
+    </div>
+  
+    <p id="output"></p>
+    <p id="averageOutput"></p>
+  </div>
