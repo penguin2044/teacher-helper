@@ -1,148 +1,125 @@
-"use strict";
+"use strict"
 
-function getData() {
-    const amGrades = parseInt(document.getElementById("grades-amount").value);
-    preGenerator();
-    tableGenerator(amGrades);
-}
+// Place of students
+const studentsTable = document.getElementById('students-table');
 
-function preGenerator() {
-    let place = document.getElementById('grades-div');
-    place.innerHTML = '';
-    place.innerHTML = `<form id="form2" onsubmit="return false;" onkeydown="handleKeyPress(event)">
-            <fieldset id="grades">
-            </fieldset>
-        </form>
-        <div id="button"></div>
-        <div id="result"></div>`;
-}
-// Input validation for first field
-function validateInputFirst() {
-    let inputElement = document.getElementById("grades-amount");
-    let inputValue = parseInt(inputElement.value);
-    if (inputValue > 50) {
-        inputElement.value = "50";
-    } else if (isNaN(inputValue)) {
-        inputElement.value = "";
-    } else if (inputValue < 0) {
-        inputElement.value = "0";
-    } else if (inputElement.value.length > 2) {
-        inputElement.value = "0";
-    }
-}
+// Place of results
+const classResults = document.getElementById('answer');
 
-// Validating of input for grades in between 0 an 100
-function validateInput(id) {
-    let inputElement = document.getElementById(id);
-    let inputValue = parseInt(inputElement.value);
-    let numberOfRow = id.match(/\d+/);
-    let num = parseInt(numberOfRow) + 1;
-    //Pass or fail colours
-    if (inputValue < 0) {
-        alert("Pleae enter a number in between 0 and 100 for #" + num + ".");
-        inputElement.value = "0"; // Clear the input field
-    } else if (inputValue > 100) {
-        inputElement.value = "100";
-        document.getElementById(id).style.backgroundColor = '#4bde72';
-    } else if (inputElement.value.length > 3) {
-        inputElement.value = "0"
-    } else if (inputValue < 50) {
-        document.getElementById(id).style.backgroundColor = '#fc7168';
-    } else if (isNaN(inputValue)) {
-        inputElement.value = "";
-    } else {
-        document.getElementById(id).style.backgroundColor = '#4bde72';
-    }
-}
+// Id for each
+let studentId = 0;
 
-//Outputs the result
-function tableGenerator(grades) {
-
-    // Get a reference to the place where we insert our grades fields
-    let place = document.getElementById("grades");
-
-    for (let i = 0; i < grades; i++) {
-        // Div box for every row
-        let rowDiv = document.createElement("div");
-        rowDiv.classList.add("input-num")
-
-        // Create a label element
-        let label = document.createElement("label");
-        label.setAttribute("for", `grade${i}`);
-        label.setAttribute("class", "label-grades")
-        label.innerText = `Student Grade #${i + 1}:`;
-
-        // Crate an input element
-        let input = document.createElement("input");
-        input.setAttribute("id", `grade${i}`);
-        input.setAttribute("type", "number");
-        input.setAttribute("placeholder", 0);
-        input.setAttribute("min", 0);
-        input.setAttribute("max", 100);
-        input.setAttribute("class", "data input-grades");
-        input.setAttribute("oninput", `validateInput("grade${i}")`);
-
-        // Appending label and input to designated place in the document
-        place.appendChild(rowDiv);
-        rowDiv.appendChild(label);
-        rowDiv.appendChild(input);
-    }
-    let button = document.createElement("button");
-    button.innerText = "Calculate";
-    button.setAttribute("onclick", "getGrades()");
-    document.getElementById('button').appendChild(button);
-    button.classList.add("button");
-}
-
-// Value entered by the user
-function getGrades() {
-    const gradesArr = Array.from(document.getElementsByClassName('data'));
-    const myArr = gradesArr.map((el) => el.value);
-    // Check and build
-    if (!!calFromArr(myArr)) {
-        reportCard(calFromArr(myArr));
-    } else {
-        alert('You missed entered some grades');
-    }
-}
-
-// Report builder
-function reportCard(avr) {
-    if (avr < 70) {
-        document.getElementById("result").innerHTML = `${avr.toFixed(3)}% <br /> Hint: Average is below 70%. Consider reviewing concepts from the unit before moving on.`;
-    } else {
-        document.getElementById("result").innerHTML = `${avr.toFixed(3)}%`;
-    }
-}
-
-// Calculate the average
-function calFromArr(arr) {
-    let sum = 0;
-    for (let i = 0; arr.length > i; i++) {
-        sum += parseInt(arr[i]);
-    }
-    return sum / arr.length;
-}
-
-// Submission form on Enter (I confess, I cheated and used chatGPT for that, but I understand this part )
-function handleKeyPress(event, id) {
-    if (event.key === "Enter") {
-        event.preventDefault(); // Prevent the default form submission
-        const inputs = document.querySelectorAll("input");
-        const currentInput = document.activeElement;
-        const currentIndex = Array.from(inputs).indexOf(currentInput);
-
-        if (currentIndex < inputs.length - 1) {
-            // If not the last input, focus on the next input
-            inputs[currentIndex + 1].focus();
+const allStudent = {
+    grades: [],
+    names: [],
+    ben:0,
+    bob:100,
+    getData: function () {
+        let grade = document.getElementById('grade').value;
+        let sName = document.getElementById('full-name').value;
+        if (!!sName && !!grade) {
+        this.grades.push(parseInt(grade));
+        this.names.push(sName);
+        this.pushInTable();
         } else {
-            // If the last input, call the appropriate function based on the 'id'
-            if (id === 1) {
-                getData();
-            } else {
-                getGrades();
-            }
+            alert('Enter the name or grade');
         }
+
+
+    },
+
+    average: function () {
+
+        let sum = 0;
+        for (let i = 0; this.grades.length > i; i++) {
+            sum += parseInt(this.grades[i]);
+        }
+        document.getElementById('answer').innerText = `The grade average is ${(sum / this.grades.length).toFixed(2)}%`; 
+        this.low();
+        this.high(); 
+        document.getElementById('low').innerText = `The lowset grade is ${this.bob}%`; 
+        document.getElementById('high').innerText = `The highest grade is ${this.ben}%`;    
+ 
+
+    },
+    low: function(){
+        this.bob = 100;
+        for(let i=0;i < this.grades.length; i++){
+                if(this.grades[i] < this.bob)
+                this.bob = this.grades[i];
+            console.log(this.grades.length);
+        }
+        
+
+    },
+    high: function() {
+        
+        for(let i = 0; i < this.grades.length; i++){
+            if(this.grades[i] > this.ben)
+                this.ben = this.grades[i];
+        }
+        
+    },
+
+    pushInTable: function () {
+        let divRow = document.createElement('div');
+        divRow.classList.add('row');
+        divRow.setAttribute('id', `student-${studentId}`);
+
+        let divName = document.createElement('div');
+        divName.classList.add(  'name');
+        divName.innerText = `name: ${allStudent.names[studentId]}`;
+
+
+        let divGrade = document.createElement('div');
+        divGrade.classList.add('student-grade');
+        divGrade.innerText = `grade: ${allStudent.grades[studentId]}%`;
+
+
+        // Button for deletion
+        let buttonDel = document.createElement('button');
+        buttonDel.setAttribute('onclick', `allStudent.deleteRow('student-${studentId}', ${studentId})`);
+        buttonDel.innerText = 'Delete';
+
+        
+        studentsTable.appendChild(divRow);
+
+        let newPlace = document.getElementById(`student-${studentId}`);
+        newPlace.appendChild(divName);
+        newPlace.appendChild(divGrade);
+        newPlace.appendChild(buttonDel);
+
+                
+
+        studentId++;
+
+        this.average();
+    },
+
+    deleteRow: function (studId, indexNum) {
+        console.log(this.grades);
+        this.grades.splice(indexNum, 1);
+        this.names.splice(indexNum, 1);
+        const element = document.getElementById(studId);
+        element.remove();
+        console.log(this.grades);
+        studentId--;
+        this.average();
+        
+    }
+};
+
+// Input validation for first field
+function rangeValidation(min, max) {
+    let inputElement = document.getElementById("grade");
+    let inputValue = parseInt(inputElement.value);
+    if (inputValue > max) {
+        inputElement.value = max;
+    } else if (isNaN(inputValue)) {
+        inputElement.value = "";
+    } else if (inputValue < min) {
+        inputElement.value = min;
+    } else if (inputElement.value.length > 3) {
+        inputElement.value = min;
     }
 }
-
