@@ -1,9 +1,133 @@
-* {
-    margin: 0;
-    padding: 0;
+:root {
+  --my-blue: red;
+}
+
+h1 {
+  font-weight: bold;
+  font-size: 2em;
+  text-transform: uppercase;
+  text-align: center;
+  margin: 20px;
+  padding: 0px;
+  text-shadow: var(--my-blue) 1px 0 20px;
+  color: rgb(255, 0, 0);
+  
+}
+
+body {
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
 }
 
 main {
-    width: 50%;
-    margin: auto;
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px red;
+  animation: breathingShadow 5s infinite;
+}
+
+@keyframes breathingShadow {
+  0% {
+    box-shadow: 0 0 40px rgba(255, 0, 0, 0.4);
+  }
+
+  50% {
+    box-shadow: 0 0 60px rgba(255, 0, 0, 0.8);
+  }
+
+  100% {
+    box-shadow: 0 0 40px rgba(255, 0, 0, 0.4);
+  }
+}
+
+label {
+  color: white;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="checkbox"] {
+  margin: 5px;
+
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  outline: 1px solid red;
+  color: white;
+  background-color: black;
+}
+
+
+input[type="submit"] {
+
+  background-color: red;
+  margin: 5px;
+  color: #ffffff;
+  padding: 10px 20px;
+  border: red;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+input[type="submit"]:hover {
+  background-color: rgb(255, 0, 0);
+  /* Green */
+  box-shadow: 0 12px 16px 0 rgba(255, 0, 0, 0.24), 0 17px 50px 0 rgba(255, 0, 0, 0.19);
+  border: red;
+  border-radius: 5px;
+}
+
+
+hr {
+  height: 1px;
+  background-color: #ff0000;
+  border: none;
+  margin: 10px;
+}
+
+main {
+  background-color: black;
+}
+
+button {
+  background-color: red;
+  color: #fff;
+  padding: 10px 20px;
+  border: red;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: rgb(255, 0, 0);
+  /* Green */
+  box-shadow: 0 12px 16px 0 rgba(255, 0, 0, 0.24), 0 17px 50px 0 rgba(255, 0, 0, 0.19);
+  border: red;
+  border-radius: 5px;
+
+}
+
+.name {
+  padding-left: 10px;
+}
+
+.student-grade {
+  padding-left: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.row {
+  padding: 10px;
+  margin: 10px;
+  border-top: 1px solid red;
 }
