@@ -25,6 +25,7 @@ const allStudent = {
             alert('Enter the name or grade');
         }
 
+
     },
 
     average: function () {
