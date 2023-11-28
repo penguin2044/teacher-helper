@@ -1,31 +1,35 @@
 "use strict";
 
+// Get references to HTML elements
 const studentsTable = document.getElementById('students-table');
 const totalGradesElement = document.getElementById('total-grades');
 const amountOfGradesElement = document.getElementById('amount-of-grades');
 
+// Function to validate input range
 function rangeValidation(min, max) {
     const inputElement = document.getElementById("grade");
     const inputValue = parseInt(inputElement.value);
 
+    // Check if input is a number within the specified range
     if (isNaN(inputValue) || inputValue < min || inputValue > max || inputElement.value.length > 3) {
         inputElement.value = min;
     }
 };
 
+// Event handler for Enter key press
 function handleKeyPress(event) {
     if (event.key === "Enter") {
         allStudent.updateStats();
     }
 };
 
-
-
+// Object to manage student data and statistics
 const allStudent = {
     grades: [],
     totalGrades: 0,
     amountOfGrades: 0,
 
+    // Method to get data from input and update statistics
     getData: function () {
         const gradeInput = document.getElementById('grade').value;
         if (!!gradeInput) {
@@ -39,6 +43,18 @@ const allStudent = {
         }
     },
 
+    // Method to delete data at a specific index and update statistics
+    deleteData: function (index) {
+        if (index >= 0 && index < this.grades.length) {
+            const deletedGrade = this.grades.splice(index, 1)[0];
+            this.totalGrades -= deletedGrade;
+            this.amountOfGrades--;
+
+            this.generateTable();
+        }
+    },
+
+    // Method to update various statistics
     updateStats: function () {
         this.updateStat('low', 'The lowest grade is');
         this.updateStat('high', 'The highest grade is');
@@ -47,10 +63,12 @@ const allStudent = {
         this.updateStat('averageGrades', 'The grade average is')
     },
 
+    // Method to calculate average grades
     averageGrades: function () {
         return (this.totalGrades / this.amountOfGrades || 0).toFixed(2);
     },
 
+    // Method to update a specific statistic element
     updateStat: function (elementId, message) {
         const statElement = document.getElementById(elementId);
         if (elementId === 'totalGrades' || elementId === 'amountOfGrades') {
@@ -60,14 +78,17 @@ const allStudent = {
         }
     },
 
+    // Method to get the lowest grade
     low: function () {
         return this.grades.length ? Math.min(...this.grades) : 0;
     },
 
+    // Method to get the highest grade
     high: function () {
         return this.grades.length ? Math.max(...this.grades) : 100;
     },
 
+    // Method to generate the table of student grades
     generateTable: function () {
         studentsTable.innerHTML = '';
         for (let i = 0; i < this.grades.length; i++) {
@@ -81,7 +102,11 @@ const allStudent = {
 
             const buttonDel = document.createElement('button');
             buttonDel.innerText = 'Delete';
-            buttonDel.setAttribute('id', i);
+            buttonDel.setAttribute('data-index', i);
+            buttonDel.addEventListener('click', function () {
+                const indexToDelete = parseInt(this.getAttribute('data-index'));
+                allStudent.deleteData(indexToDelete);
+            });
 
             divRow.appendChild(divGrade);
             divRow.appendChild(buttonDel);
@@ -90,38 +115,4 @@ const allStudent = {
             this.updateStats();
         }
     },
-
-    deleteRow: function (rowId) {
-        this.totalGrades -= this.grades[rowId];
-        this.amountOfGrades--;
-        this.grades.splice(rowId, 1);
-        this.generateTable();
-        this.updateStats();
-    }
 };
-
-let buttons = document.querySelectorAll('button');
-
-function handleButtonClick(event) {
-    let buttonId = event.target.id;
-
-    allStudent.deleteRow(buttonId);
-}
-
-buttons.forEach(function (button) {
-    button.addEventListener('click', handleButtonClick);
-});
-
-document.addEventListener('DOMContentLoaded', function () {
-    let deleteButtons = document.querySelectorAll('.deleteButton');
-
-    function handleButtonClick(event) {
-      let button = event.target;
-      let row = button.closest('tr');
-      let table = document.getElementById('studentTable');
-
-      table.deleteRow(row.rowIndex);
-    }
-
-    deleteButtons.forEach(function (button) {
-      button.addEventListener('click', handleButtonClick);
