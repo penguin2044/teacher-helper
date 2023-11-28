@@ -22,7 +22,7 @@
             <h1>Grade Average Calculator</h1>
         </header>
         <section id="fill-out">
-            <form onsubmit="return false;">
+            <form onsubmit="return false;" onkeydown="handleKeyPress(event, 1)">
                 <!-- Student's full name -->
                 <div>
                     <label for="full-name">First and Last Name of the Student</label>
@@ -41,7 +41,10 @@
             </form>
         </section>
         <section id="answer">
+
         </section>
+        <p id="low"></p>
+        <p id="high"></p>
         <section id="students-table">
 
 
